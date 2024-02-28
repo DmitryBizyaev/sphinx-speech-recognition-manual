@@ -1,0 +1,1 @@
+# sphinx-speech-recognition-manual
