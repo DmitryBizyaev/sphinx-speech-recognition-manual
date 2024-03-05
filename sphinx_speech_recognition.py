@@ -1,5 +1,4 @@
 from pocketsphinx import Decoder
-import os
 import wave
 
 

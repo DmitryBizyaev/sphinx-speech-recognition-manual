@@ -1,28 +1,24 @@
 from http.server import *
-import json
 from sphinx_speech_recognition import decode_audio_file
 
 
-# обработка GET и POST запросов
+# обработка запросов
 class Handler(BaseHTTPRequestHandler):
 
     # обработка GET запроса
     def do_GET(self): 
         
-        # Sending success response code 200
+        # ответная отправка "успешного" запроса
         self.send_response(200)
-        self.send_header('content-type', 'text/html') 
-        self.end_headers() 
-          
-        self.wfile.write('<h1>Server is running</h1>'.encode()) 
+        self.send_header('content-type', 'text/html')
+        self.end_headers()
+        self.wfile.write('<h1>Server is running</h1>'.encode())
 
 
     # обработка POST запроса
     def do_POST(self):
 
         content_length = int(self.headers['Content-Length'])
-        self.wfile.write(f'\n\n -- Content length: {content_length}\n\n\n'.encode('utf-8'))
-
         print ("content_length: " + str(content_length))
         post_data = self.rfile.read(content_length)
 
@@ -42,7 +38,7 @@ class Handler(BaseHTTPRequestHandler):
         
         
 
-        # Send a response back
+        # отправка ответного POST запроса с расшифровкой аудио файла
         self.send_response(200)
         self.send_header('Content-type', 'text/plain')
         self.send_header("Access-Control-Allow-Origin", '*')
@@ -64,8 +60,8 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main():
+
     port = HTTPServer(('', 5000), Handler)
-    
     print("\nserver is running")
       
     port.serve_forever()
