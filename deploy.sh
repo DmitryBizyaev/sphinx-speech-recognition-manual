@@ -1,22 +1,22 @@
 #!/bin/bash
 
-echo "update"
+echo $"\napt-get update"
 sudo apt-get update &> /dev/null
 
-echo "check python version"
+echo $"\ncheck python version"
 sudo python3 --version 2> /dev/null
 
-echo "pip install"
+echo $"\npip install"
 sudo apt-get install python3-pip -y &> /dev/null
 sudo pip3 --version 2> /dev/null
 
-echo "pip update"
+echo $"\npip update"
 sudo pip3 install --upgrade pip -y &> /dev/null
 sudo pip3 --version 2> /dev/null
 
-echo "pocketsphinx install"
+echo $"\npocketsphinx install"
 sudo pip3 install pocketsphinx &> /dev/null
 sudo pip3 show pocketsphinx 2> /dev/null
 
-echo "server start"
+echo $"\nserver start"
 sudo python3 request_handler.py

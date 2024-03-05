@@ -16,6 +16,7 @@ class Handler(BaseHTTPRequestHandler):
           
         self.wfile.write('<h1>Server is running</h1>'.encode()) 
 
+
     # обработка POST запроса
     def do_POST(self):
 
@@ -25,18 +26,19 @@ class Handler(BaseHTTPRequestHandler):
         print ("content_length: " + str(content_length))
         post_data = self.rfile.read(content_length)
 
-        file_name = "received_data_test.wav" 
+        file_name = "received_data.wav" 
 
         try:
             with open(file_name, 'wb') as file:
                 file.write(post_data)
 
-            print("Audio file written")
+            print("\naudio file written")
 
             response_message = decode_audio_file(file_name)
-            print("Audio file transcribed")
+            print("\naudio file transcribed")
+
         except Exception as e:
-            response_message = f"Error saving data: {str(e)}"
+            response_message = f"\nerror saving data: {str(e)}"
         
         
 
@@ -47,13 +49,19 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(response_message.encode('utf-8'))
         print(response_message.encode('utf-8'))
-        print("response send")
-  
-port = HTTPServer(('', 5000), Handler)
+        print("\nresponse sent")
 
-print("Server is running")
-  
-port.serve_forever()
-port.server_close()
 
-print("Server stopped")
+def main():
+    port = HTTPServer(('', 5000), Handler)
+    
+    print("\nserver is running")
+      
+    port.serve_forever()
+    port.server_close()
+    
+    print("\nserver stopped")
+
+
+if __name__ == "__main__":
+    main()
