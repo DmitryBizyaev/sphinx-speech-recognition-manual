@@ -52,6 +52,17 @@ class Handler(BaseHTTPRequestHandler):
         print("\nresponse sent")
 
 
+    # обработка OPTIONS запроса
+    def do_OPTIONS(self):
+        
+        self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Access-Control-Allow-Methods', 'GET, OPTIONS')
+        self.send_header("Access-Control-Allow-Headers", "X-Requested-With")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.end_headers()
+
+
 def main():
     port = HTTPServer(('', 5000), Handler)
     
